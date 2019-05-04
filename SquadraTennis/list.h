@@ -1,7 +1,5 @@
 #include "item.h"
 
-/*test*/
-
 typedef struct list *List;
 
 List newList();
