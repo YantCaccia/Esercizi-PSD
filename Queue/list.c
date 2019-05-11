@@ -24,10 +24,9 @@ List newList() {
 }
 
 Item removeHead(List list) {
-    if(isEmpty(list)) {
-        fprintf(stderr, "List empty!\n");
+    if(isEmpty(list))
         return NULL;
-    } else {
+    else {
         struct node *tempNode = list->head;
         list->head = list->head->next;
         Item tempItem = tempNode->value;

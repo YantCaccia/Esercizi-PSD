@@ -1,5 +1,5 @@
 wlist :	utils.o main.o int-item.o list.o queue-list.o
-	gcc utils.o main.o int-item.o list.o queue-list.o -o driver.exe
+	gcc utils.o main.o int-item.o list.o queue-list.o -o driver.out
 
 warr :	utils.o main.o int-item.o list.o queue-arr.o
 	gcc utils.o main.o int-item.o list.o queue-arr.o -o driver.exe
@@ -38,4 +38,4 @@ string-item.o:
 	gcc -c string-item.c
 
 clean: 
-	rm -f *.o *.exe
+	rm -f *.o *.exe *.out
