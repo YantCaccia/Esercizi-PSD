@@ -82,3 +82,9 @@ void removeAll(List list) {
     list->head = NULL;
     list->size--;
 }
+
+int countOccurencies(int i, List list, Item item) {
+    if(!list->head) return i;
+    if(!comp_items(list->head->value, item)) i++;
+    return countOccurencies(i, list->head, item);
+}

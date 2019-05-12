@@ -18,3 +18,4 @@ Item searchItem(List list, Item item);
 Item removeItemPos(List list, int pos);
 Item removeItemElem(List list, Item item);
 void removeAll(List list);
+int countOccurencies(int i, List list, Item item);
