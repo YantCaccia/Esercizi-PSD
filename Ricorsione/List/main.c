@@ -14,7 +14,7 @@ int main(void) {
     printf("\n");
 
     int *p = searchItem(list, in_item());
-
+    
     if(p)
         printf("%d\n", *p);
     else
