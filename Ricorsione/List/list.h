@@ -1,5 +1,6 @@
 #include "item.h"
 typedef struct list *List;
+typedef struct node *Node;
 
 /*removeHead libera il nodo ma non l'item così possiamo usarlo/liberarlo in un secondo momento*/
 
@@ -19,3 +20,9 @@ Item removeItemPos(List list, int pos);
 Item removeItemElem(List list, Item item);
 void removeAll(List list);
 int countOccurencies(int i, List list, Item item);
+List cloneListbyPos(List list);
+void cloneListRec(int i, List list, Node p);
+Item findMin(List list);
+Item findMinRec(Node p, Item item);
+char *concatene(List list);
+char *concateneRec(char *str, struct node *p);

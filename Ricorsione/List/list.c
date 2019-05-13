@@ -88,3 +88,42 @@ int countOccurencies(int i, List list, Item item) {
     if(!comp_items(list->head->value, item)) i++;
     return countOccurencies(i, list->head, item);
 }
+
+List cloneListbyPos(List list) {
+    List clonelist = newList();
+
+    cloneListRec(0, clonelist, list->head);
+
+    return clonelist;
+}
+
+void cloneListRec(int i, List list, struct node *p) {
+    if(!p) return;
+    if((i % 2) == 1) addHead(list, p->value);
+    cloneListRec(++i, list, p->next);
+}
+
+Item findMin(List list) {
+    return findMinRec(list->head, list->head->value);
+}
+
+Item findMinRec(struct node *p, Item item) {
+    if(!p) return item;
+
+    if(comp_items(p->value, item) < 0)
+        findMinRec(p->next, p->value);
+    else
+        findMinRec(p->next, item);
+}
+
+char *concatene(List list) {
+    char str[100];
+    str[0] = '\0';
+    return concateneRec(str, list->head);
+}
+
+char *concateneRec(char *str, struct node *p) {
+    if(!p) return str;
+    strcat(str, p->value);
+    return concateneRec(str, p->next);
+}

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "list.h"
+#define newline printf("\n")
 
 int main(void) {
     List list = newList();
@@ -10,14 +11,10 @@ int main(void) {
     addHead(list, in_item());
     addHead(list, in_item());
 
-    // printList(list);
-    // removeAll(list);
     printList(list);
-    printf("\n");
+    newline;
 
-    int i = countOccurencies(0, list, in_item());
-
-    printf("%d\n", i);
+    printf("Final string: [%s]\n", concatene(list));
 
     return 0;
 }

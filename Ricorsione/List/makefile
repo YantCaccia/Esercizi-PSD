@@ -1,11 +1,17 @@
 t: list.o item.o utils.o main.o
 	gcc list.o item.o utils.o main.o -o list.exe
 
+str: list.o string-item.o utils.o main.o
+	gcc list.o string-item.o utils.o main.o -o list.exe
+
 list.o:
 	gcc -c list.c
 
 item.o:
 	gcc -c item.c
+
+string-item.o:
+	gcc -c string-item.c
 
 utils.o:
 	gcc -c utils.c
