@@ -1,6 +1,7 @@
 #include "list.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "item.h"
 #include "utils.h"
 
@@ -57,50 +58,74 @@ int isEmpty(List list) {
 }
 
 void printList(List list) {
-    if(!list->head) return;
-    out_item(list->head->value);
-    printList(list->head);  // NON SO PERCHE' CAZZO FUNZIONI (DOVREI PASSARE ->NEXT)
+    if(isEmpty(list))
+        printf("List empty!");
+    else
+        printListRec(list->head);
+}
+
+void printListRec(struct node *p) {
+    if(!p) return;
+    out_item(p->value);
+    printListRec(p->next);
 }
 
 Item searchItem(List list, Item item) {
-    if(!list->head) return NULL;  // non trovato
+    return searchItemRec(list->head, item);
+}
 
-    if(!comp_items(list->head->value, item))
+Item searchItemRec(struct node *p, Item item) {
+    if(!p) return NULL;  // non trovato
+
+    if(!comp_items(p->value, item))
         return item;  // trovato
     else
-        return searchItem(list->head, item);  // chiamata ricorsiva
+        return searchItemRec(p->next, item);  // chiamata ricorsiva
 }
 
 void removeAll(List list) {
-    if(!list->head->next) {
-        free(list->head);
+    removeAllRec(list->head);
+    list->head = NULL;
+    list->size = 0;
+}
+
+void removeAllRec(struct node *p) {
+    if(!p->next) {
+        free(p);
         return;
     }
 
-    removeAll(list->head);
-    free(list->head);
-    list->head = NULL;
-    list->size--;
+    removeAllRec(p->next);
+    free(p);
 }
 
-int countOccurencies(int i, List list, Item item) {
-    if(!list->head) return i;
-    if(!comp_items(list->head->value, item)) i++;
-    return countOccurencies(i, list->head, item);
+int countOccurencies(List list, Item item) {
+    return countOccurenciesRec(0, list->head, item);
+}
+
+int countOccurenciesRec(int i, struct node *p, Item item) {
+    if(!p) return i;
+    if(!comp_items(p->value, item)) i++;
+    return countOccurenciesRec(i, p->next, item);
 }
 
 List cloneListbyPos(List list) {
-    List clonelist = newList();
-
-    cloneListRec(0, clonelist, list->head);
-
-    return clonelist;
+    return cloneListbyPosRec(0, list->head);
 }
 
-void cloneListRec(int i, List list, struct node *p) {
-    if(!p) return;
-    if((i % 2) == 1) addHead(list, p->value);
-    cloneListRec(++i, list, p->next);
+List cloneListbyPosRec(int i, struct node *p) {
+    if(!p->next) {
+        List clonel = newList();
+        if(i % 2)
+            return addHead(clonel, p->value);
+        else
+            return clonel;
+    }
+
+    if(i % 2)
+        return addHead(cloneListbyPosRec(++i, p->next), p->value);
+    else
+        return cloneListbyPosRec(++i, p->next);
 }
 
 Item findMin(List list) {
@@ -108,12 +133,9 @@ Item findMin(List list) {
 }
 
 Item findMinRec(struct node *p, Item item) {
-    if(!p) return item;
-
-    if(comp_items(p->value, item) < 0)
-        findMinRec(p->next, p->value);
-    else
-        findMinRec(p->next, item);
+    if(!p->next) return p->value;
+    Item a = findMinRec(p->next, item);
+    return comp_items(a, p->value) < 0 ? a : p->value;
 }
 
 char *concatene(List list) {
@@ -123,7 +145,6 @@ char *concatene(List list) {
 }
 
 char *concateneRec(char *str, struct node *p) {
-    if(!p) return str;
-    strcat(str, p->value);
-    return concateneRec(str, p->next);
+    if(!p->next) return strcat(str, p->value);
+    return strcat(concateneRec(str, p->next), p->value);  // FUCKING COOL
 }

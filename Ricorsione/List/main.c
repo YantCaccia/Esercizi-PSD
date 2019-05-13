@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "list.h"
-#define newline printf("\n")
+#define nl printf("\n")
 
 int main(void) {
     List list = newList();
@@ -12,9 +12,10 @@ int main(void) {
     addHead(list, in_item());
 
     printList(list);
-    newline;
+    nl;
 
-    printf("Final string: [%s]\n", concatene(list));
+    printf("[%d]\n", countOccurencies(list, in_item()));
+    nl;
 
     return 0;
 }

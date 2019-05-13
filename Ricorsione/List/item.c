@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 Item in_item() {
-    Item a = malloc(sizeof(int));
+    int *a = malloc(sizeof(int));
     scanf("%d", a);
     return a;
 }
