@@ -1,5 +1,6 @@
 /*Fattoriale ricorsivo*/
 #include <stdio.h>
+#include <stdlib.h>
 
 int fact(int n) {
     if(n != 1)
@@ -8,7 +9,7 @@ int fact(int n) {
         return 1;
 }
 
-int main(void) {
-    printf("%d\n", fact(5));
+int main(int argc, char* argv[]) {
+    printf("%d\n", fact(atoi(argv[1])));
     return 0;
 }
