@@ -33,9 +33,6 @@ int main(void) {
     preOrder(h);
     printf("\n");
 
-    postOrder(h);
-    printf("\n");
-
-    simm(h);
+    visitByLevels(h);
     printf("\n");
 }

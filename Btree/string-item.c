@@ -4,7 +4,7 @@
 #include "item.h"
 
 Item in_item() {
-    Item a = malloc(sizeof(char *));
+    char *a = malloc(sizeof(char) * 25);
     scanf(" %s", a);
     return a;
 }

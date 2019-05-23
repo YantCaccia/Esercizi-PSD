@@ -11,3 +11,7 @@ Btree getLeft(Btree tree);
 void preOrder(Btree tree);
 void postOrder(Btree tree);
 void simm(Btree tree);
+void visitByLevels(Btree tree);
+void visitByLevelsBrutta(Btree sons[], int dim);
+int numberOfNodes(Btree tree);
+int heightOfTree(Btree tree);
