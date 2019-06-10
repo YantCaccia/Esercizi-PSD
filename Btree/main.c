@@ -30,7 +30,11 @@ int main(void) {
     Item it9 = "h";
     Btree h = buildTree(a, c, it9);
 
-    preOrder(h);
+    /*-----------------------------*/
+
+    char arr[9] = {"d", "o", "q", "p", "s", "l", "c", "a", "h"};
+
+    simm(h);
     printf("\n");
 
     visitByLevels(h);

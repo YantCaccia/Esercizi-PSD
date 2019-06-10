@@ -57,12 +57,12 @@ void postOrder(Btree tree) {
     out_item(tree->value);
 }
 
-void simm(Btree tree) {
+void inOrder(Btree tree) {
     if(!tree) return;
 
-    simm(tree->left);
+    inOrder(tree->left);
     out_item(tree->value);
-    simm(tree->right);
+    inOrder(tree->right);
 }
 
 void visitByLevels(Btree tree) {
@@ -81,6 +81,7 @@ void visitByLevelsBrutta(Btree sons[], int dim) {
     for(int i = 0; i < dim; i++) {
         out_item(sons[i]->value);
     }
+    printf("\n");
 
     for(int i = 0, j = 0; i < dim; i++) {
         Btree left = sons[i]->left;
@@ -132,6 +133,27 @@ void insert(Btree *tree, Item item) {
     if(comp_items(item, (*tree)->value) < 0) return insert(&(*tree)->left, item);
 }
 
+void balanced(Btree *tree, Item *arr, int inizio, int fine) {
+    /*
+     * PROBABILMENTE crea un albero bilanciato a partire da un array ordinato
+     */
+
+    if(fine <= inizio) return;
+
+    int n = (fine - inizio) / 2;
+    Item v = arr[n];
+
+    if(isEmptyTree(*tree)) {
+        *tree = malloc(sizeof(struct btree));
+        (*tree)->left = NULL;
+        (*tree)->right = NULL;
+        (*tree)->value = v;
+    }
+
+    balanced(&(*tree)->left, arr, inizio, n);
+    balanced(&(*tree)->right, arr + n + 1, 0, n - n / 2);
+}
+
 Item search(Btree tree, Item item) {
     if(isEmptyTree(tree)) return NULL;
     if(!comp_items(item, tree->value)) return (tree->value);
@@ -173,4 +195,14 @@ void delete(Btree *tree, Item item) {
         }
         /*----------------------------*/
     }
+}
+
+int areEquals(Btree a, Btree b) {
+    /*Check if Btree a is equal to Btree b*/
+
+    if(!a && !b) return 1;
+
+    if(comp_items(a->value, b->value)) return 0;  // ritorna 0 se i due valori non sono uguali
+
+    return (areEquals(a->left, b->left) && (areEquals(a->right, b->right)));
 }
