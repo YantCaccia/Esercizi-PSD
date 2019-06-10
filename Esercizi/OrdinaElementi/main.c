@@ -12,8 +12,6 @@ int main(int argc, char* argv[]) {
     for(int i = 1; i < argc; i++) {
         int* tmp = malloc(sizeof(int));
         *tmp = atoi(argv[i]);
-        out_item(tmp);
-        printf("\n");
         insert(&h, tmp);
     }
 
